@@ -46,7 +46,11 @@ class ProductNew:
         for brand in brand_list:
             self.b.options.append(ft.dropdown.Option(brand))
 
+<<<<<<< HEAD
         self.button_enter = ft.ElevatedButton("Insira o produto",**button(),
+=======
+        self.button_enter = ft.ElevatedButton("Insira o produto",
+>>>>>>> df20466 (Adição do login e registo de utilizadores)
                                               on_click=lambda _: print("Insiriu o produto na Base de Dados"))
 
         self.btn_close_img = IconButton(
@@ -87,7 +91,11 @@ class ProductNew:
         file_picker = ft.FilePicker(on_result=insert_img_product)
         page.overlay.append(file_picker)
 
+<<<<<<< HEAD
         self.button_image = ft.ElevatedButton(text='Insira a Imagem', **button(),
+=======
+        self.button_image = ft.ElevatedButton(text='Insira a Imagem',
+>>>>>>> df20466 (Adição do login e registo de utilizadores)
                                               on_click=lambda _: file_picker.pick_files(allow_multiple=False,
                                                                                         allowed_extensions=['jpg',
                                                                                                             'jpeg',
@@ -143,7 +151,10 @@ class ProductNew:
                                 self.title_product,
                                 self.txt_name_product,
                                 self.txt_price,
+<<<<<<< HEAD
                                 self.txt_cod_bar,
+=======
+>>>>>>> df20466 (Adição do login e registo de utilizadores)
                                 self.b,
                                 self.c,
                                 self.description_product,

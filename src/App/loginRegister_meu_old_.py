@@ -1,9 +1,14 @@
 import flet as ft
 import hashlib
+import re
+import pandas as pd
+from Views.User.ListUser import table_data as db_user
 
 class LoginRegister:
     def __init__(self, page: ft.Page):
 
+    def __init__(self, page: ft.Page, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         page.title = 'Cadastro'
         page.vertical_alignment = ft.MainAxisAlignment.CENTER
         page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
@@ -21,7 +26,7 @@ class LoginRegister:
         button_submit: ft.ElevatedButton = ft.ElevatedButton(
             text='Entre',
             width=140,
-            disabled=True
+            disabled=True,
         )
         
         button_register: ft.ElevatedButton = ft.ElevatedButton(
@@ -47,6 +52,8 @@ class LoginRegister:
             text='Cadastro',
             width=140,
         )
+
+        self.table_data = pd.DataFrame(columns=['name', "login", 'password', 'type_acess'])
 
         def validate(e: ft.ControlEvent) -> None:
             if all([txt_username.value, txt_password.value, checkbox_signup.value]):
@@ -95,7 +102,7 @@ class LoginRegister:
         txt_username.on_change = validate
         txt_password.on_change = validate
         checkbox_signup.on_change = validate
-        button_submit.on_click = submit
+        button_submit.on_click = login_alert
         button_register.on_click = register
         #button_register_user.on_click = show_password_alert
         
