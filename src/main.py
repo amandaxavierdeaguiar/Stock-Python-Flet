@@ -4,9 +4,9 @@ from flet import Container, padding, Page, Text, AppBar, PopupMenuButton, PopupM
 from App.app_layout import AppLayout
 
 
-class App(ft.UserControl):
-    def __init__(self, page: Page):
-        super().__init__()
+class App(SharedControls):
+    def __init__(self, page: ft.Page, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.page = page
         self.appbar_items = [
             PopupMenuItem(text="Login"),
@@ -58,5 +58,5 @@ def main(page: ft.Page):
     page.add(app)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     ft.app(target=main, view=flet.FLET_APP_WEB, assets_dir="./assets")
