@@ -10,7 +10,7 @@ from flet import (
 )
 
 from shared.base.SharedControls import SharedControls
-
+from app.app_style import text_blue, header_style
 
 class AppHeader(SharedControls):
     """ """
