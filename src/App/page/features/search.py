@@ -7,12 +7,26 @@ from views.Product.ProductView import ProductView
 
 class Search(SharedControls):
     product_view: ProductView = ProductView()
+    layout_panel = {
+        'Stock': [],
+        'Stock_textfield': ['Produto', 'product_name'],
+        'Supplier': [],
+        'Supplier_textfield': ['Fornecedor', 'supplier_name'],
+        'User': [],
+        'User_textfield': ['Utilizador', 'login']
+    }
 
     def __init__(self, app, page: ft.Page, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.app_layout = app
         self.page = page
         # self._table = self.get_table()
+        self.create_layout()
+
+    @classmethod
+    def create_layout(cls):
+        cls.layout_panel['Stock'] = [cls.create_price_box, cls.create_brand_box, cls.create_category_box]
+        return cls.layout_panel
 
     @classmethod
     def get_panel(cls, var, table, new_data=None):
@@ -71,9 +85,11 @@ class Search(SharedControls):
                         content=ft.Column(
                             controls=[
                                 # CAIXAS DA PESQUISA AQUI
-                                ft.TextField(label="Produto", width=300, height=30, on_submit=var, data='product_name'),
-                                cls.create_panel_search(var) if new_data is None else cls.create_panel_search(var,
-                                                                                                              new_data),
+                                ft.TextField(label=cls.layout_panel[f'{table}_textfield'][0],
+                                             width=300, height=30, on_submit=var,
+                                             data=cls.layout_panel[f'{table}_textfield'][1]),
+                                cls.create_panel_search(var, table)
+                                if new_data is None else cls.create_panel_search(var, table, new_data),
                             ],
                             alignment=ft.MainAxisAlignment.CENTER,
                             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
@@ -100,26 +116,20 @@ class Search(SharedControls):
             return ft.ElevatedButton(text='Insert User', on_click=var, data='User_insert')
 
     @classmethod
-    def create_panel_search(cls, var, new_data=None):
+    def create_panel_search(cls, var, table, new_data=None):
+        cls.layout_panel = cls.create_layout()
+        list_boxs = None
         if new_data is None:
-            category = cls.create_category_box(var)
-            brand = cls.create_brand_box(var)
-            price = cls.create_price_box(var)
+            list_boxs = [box(var) for box in cls.layout_panel[table]]
         else:
-            category = cls.create_category_box(var, new_data)
-            brand = cls.create_brand_box(var, new_data)
-            price = cls.create_price_box(var, new_data)
+            list_boxs = [box(var, new_data) for box in cls.layout_panel[table]]
         return ft.ExpansionPanelList(
             expand_icon_color=ft.colors.BLACK,
             elevation=7,
             divider_color=ft.colors.AMBER,
             on_change=cls.handle_change,
             expanded_header_padding=15,
-            controls=[
-                price,
-                category,
-                brand,
-            ],
+            controls=list_boxs,
         )
 
     @classmethod

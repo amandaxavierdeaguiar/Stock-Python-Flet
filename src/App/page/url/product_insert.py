@@ -1,6 +1,3 @@
-import base64
-import os
-
 import flet as ft
 from flet import colors, icons, IconButton
 
@@ -29,7 +26,7 @@ class ProductNew(SharedControls):
         super().__init__(*args, **kwargs)
 
     @classmethod
-    def get_content(cls, file_picker, show=None):
+    def get_content(cls, file_picker, close_var, show=None):
         # Colocar título
         title_product = ft.Text("Insira o produto", **title_pg())
 
@@ -64,7 +61,7 @@ class ProductNew(SharedControls):
             icon_color=colors.WHITE54,
             selected=True,
             selected_icon=icons.CLOSE,
-            on_click=cls.close_img,
+            on_click=close_var,
             visible=False,
         )
         cls.image_insert_product = ft.Image(visible=False, fit=ft.ImageFit.CONTAIN)
@@ -134,51 +131,3 @@ class ProductNew(SharedControls):
             ),
         )
         return container
-
-    @classmethod
-    def insert_img_product(cls, e: ft.FilePickerResultEvent):
-        if e.files and len(e.files):
-            file_path = e.files[0].path
-            with open(file_path, 'rb') as f:
-                image_content = f.read()
-
-                # Obter a extensão do arquivo usando o método os.path.splitext
-                file_name, file_extension = os.path.splitext(file_path)
-
-                # Diretório de destino para salvar a imagem
-                directory = os.path.abspath('assets/products')
-                if not os.path.exists(directory):
-                    os.makedirs(directory)
-
-                # Nome do produto em letras minúsculas, separado por _
-                name_text = cls.txt_name_product.value.strip().lower().split()
-                name_separate = "_".join(name_text)
-                file_name = name_separate + file_extension
-
-                # Converte a imagem em base64 para exibição
-                img_base64 = base64.b64encode(image_content).decode('utf-8')
-                cls.image_insert_product.src = f'{directory}/{file_name}'
-
-                cls.image_insert_product.data = file_name
-                # Inclui com o Fábio
-                # data para identificar o que é aquele campo
-
-                # Salvar o arquivo no diretório
-                with open(os.path.join(directory, file_name), 'wb') as w:
-                    w.write(image_content)
-
-                # Atualiza a interface gráfica
-                cls.img_Container.visible = True
-                cls.btn_close_img.visible = True
-                cls.image_insert_product.visible = True
-                cls.image_insert_product.visible = False
-                cls.button_image.visible = False
-
-    @classmethod
-    def close_img(cls, e):
-        cls.img_Container.visible = not cls.img_Container.visible
-        cls.btn_close_img.visible = not cls.btn_close_img.visible
-
-
-if __name__ == "__main__":
-    ft.app(target=ProductNew, assets_dir="./assets")

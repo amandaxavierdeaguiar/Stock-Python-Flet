@@ -1,3 +1,6 @@
+import base64
+import os
+
 import flet as ft
 from flet import Text, Column, colors, icons, IconButton, Control, Row, Container
 from App.sidebar import Sidebar

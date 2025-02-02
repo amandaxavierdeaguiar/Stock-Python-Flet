@@ -26,7 +26,6 @@ class InsertSupplier(SharedControls):
         cls.txt_phone_supplier = ft.TextField(label="Telefone do Fornecedor: ", width=300)
         cls.txt_email_supplier = ft.TextField(label="Email", width=300)
         cls.button_enter = ft.ElevatedButton("Insira o produto")
-        # on_click=self.insert_supplier
 
         cls.image_supplier = ft.Image(src=f"icons/supplier2.png", width=200, height=200, fit=ft.ImageFit.CONTAIN)
 
@@ -58,13 +57,11 @@ class InsertSupplier(SharedControls):
                                       horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                       ),
                         ],
-                        # alignment=ft.CrossAxisAlignment.CENTER,
                         spacing=20,
                     ),
                     ft.Column(width=30,
                               controls=[
                               ],
-                              # alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                               ),
                     ft.Column(
 
@@ -82,29 +79,6 @@ class InsertSupplier(SharedControls):
                     ),
 
                 ],
-                # alignment=ft.MainAxisAlignment.CENTER,
-                # horizontal_alignment=ft.CrossAxisAlignment.CENTER,
             ),
         )
         return container
-
-    """def insert_supplier(self, e):
-        self.email = self.txt_email_supplier.value
-        if not self.validate_email(self.email):
-                alert = ft.AlertDialog(
-                    title=ft.Text("Email Inválido"),
-                    content=ft.Text("Favor insira novamente!"),
-                )
-                self.page.dialog = alert
-                alert.open = True
-                self.page.update()
-            else:
-                print("Insiriu o produto na Base de Dados")
-    
-    def validate_email(email):
-        pattern = r'^[a-zA-Z]+[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]{2,7}$'
-    
-        if re.match(pattern, email):
-            return True
-        else:
-            return False"""
