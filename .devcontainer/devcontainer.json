@@ -1,0 +1,31 @@
+{
+  "name": "stock-flet",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+
+  // 👇 Features to add to the Dev Container. More info: https://containers.dev/implementors/features.
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/meaningful-ooo/devcontainer-features/homebrew:2": {},
+    "ghcr.io/devcontainers-extra/features/neovim-apt-get:1": {},
+    "ghcr.io/larsnieuwenhuizen/features/zellij:0": {},
+    "ghcr.io/devcontainers-extra/features/pipx-package:1": {},
+    "ghcr.io/devcontainers-extra/features/pipenv:2": {},
+    "ghcr.io/devcontainers-extra/features/poetry:2": {},
+    "ghcr.io/prulloac/devcontainer-features/pre-commit:1": {}
+  },
+
+  // 👇 Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+
+  // 👇 Use 'postCreateCommand' to run commands after the container is created.
+  // "postCreateCommand": "",
+
+  // 👇 Configure tool-specific properties.
+  // "customizations": {}
+
+  // 👇 Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  // "remoteUser": "root"
+  "appPort": ["51921:51921"]
+}

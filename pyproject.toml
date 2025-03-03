@@ -1,0 +1,31 @@
+[project]
+name = "stock-python-flet-fabio-new"
+version = "0.1.0"
+description = ""
+authors = [{ name = "Fabio Rodrigues", email = "fabio.rod@outlook.pt" }]
+readme = "README.md"
+requires-python = ">=3.12"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flet = "^0.21.2"
+sqlalchemy = "^2.0.38"
+pydantic = { extras = ["email"], version = "^2.10.6" }
+numpy = "^2.2.3"
+pandas = "^2.2.3"
+shortuuid = "^1.0.13"
+
+[tool.poetry.group.dev.dependencies]
+taskipy = "^1.14.1"
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
+
+[tool.taskipy.tasks]
+run = "python src/main.py"
+runweb = "flet --web src/main.py"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
