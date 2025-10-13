@@ -5,27 +5,44 @@ description = ""
 authors = [{ name = "Fabio Rodrigues", email = "fabio.rod@outlook.pt" }]
 readme = "README.md"
 requires-python = ">=3.12"
+dependencies = [
+    "pandas>=2.2.3",
+    "flet>=0.21.2",
+    "pydantic-settings>=2.10.1",
+    "pydantic[dotenv]>=2.11.7",
+    "numpy>=2.2.3",
+    "requests>=2.32.5",
+    "uvicorn>=0.35.0",
+    "python-multipart",
+    "sqlalchemy>=2.0.38",
+    "shortuuid>=1.0.13",
+]
 
-[tool.poetry.dependencies]
-python = "^3.12"
-flet = "^0.21.2"
-sqlalchemy = "^2.0.38"
-pydantic = { extras = ["email"], version = "^2.10.6" }
-numpy = "^2.2.3"
-pandas = "^2.2.3"
-shortuuid = "^1.0.13"
-
-[tool.poetry.group.dev.dependencies]
-taskipy = "^1.14.1"
-
-[tool.pyright]
-venvPath = "."
-venv = ".venv"
-
-[tool.taskipy.tasks]
-run = "python src/main.py"
-runweb = "flet --web src/main.py"
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.4.2",
+    "pytest-asyncio",
+    "ruff",
+    "black",
+    "httpx",
+]
 
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+select = ["E", "F", "W", "I"]
+
+[tool.uv]
+dev-dependencies = []
